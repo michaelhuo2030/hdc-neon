@@ -1,0 +1,45 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "hdc_neon"
+version = "0.1.0"
+description = "Fast hyperdimensional-computing (HDC) retrieval via NEON SIMD popcount + Rayon. 89× faster than numpy on Apple Silicon."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Michael (Xiaojie) Huo", email = "xh638@stern.nyu.edu" },
+]
+keywords = ["hdc", "vector-search", "simd", "neon", "hyperdimensional", "retrieval"]
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy >= 1.20",
+]
+
+[project.urls]
+Homepage = "https://github.com/michaelhuo2030/hdc-neon"
+Documentation = "https://michaelhuo2030.github.io/hdc-neon/"
+Repository = "https://github.com/michaelhuo2030/hdc-neon"
+Issues = "https://github.com/michaelhuo2030/hdc-neon/issues"
+"Blog post (HN)" = "TBD-medium-link"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+module-name = "hdc_neon"

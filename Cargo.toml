@@ -1,0 +1,27 @@
+[package]
+name = "hdc_neon"
+version = "0.1.0"
+edition = "2021"
+authors = ["Michael (Xiaojie) Huo <xh638@stern.nyu.edu>"]
+license = "Apache-2.0"
+description = "Fast hyperdimensional-computing (HDC) retrieval via NEON SIMD popcount + Rayon. 89× faster than numpy on Apple Silicon; faster than dense-float MPS at smaller storage."
+repository = "https://github.com/michaelhuo2030/hdc-neon"
+homepage = "https://michaelhuo2030.github.io/hdc-neon/"
+documentation = "https://github.com/michaelhuo2030/hdc-neon#readme"
+readme = "README.md"
+keywords = ["hdc", "vector-search", "simd", "neon", "hyperdimensional"]
+categories = ["algorithms", "data-structures", "science"]
+
+[lib]
+name = "hdc_neon"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }
+numpy = "0.22"
+rayon = "1.10"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

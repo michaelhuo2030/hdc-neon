@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install maturin + numpy
+        run: pip install maturin numpy
+
+      - name: Build (release)
+        env:
+          RUSTFLAGS: "-C target-cpu=native"
+        run: maturin develop --release
+
+      - name: Smoke test
+        run: |
+          python -c "
+          import hdc_neon
+          import numpy as np
+          N, D = 1000, 1024
+          docs = np.random.randint(0, 2**32, (N, D//64), dtype=np.uint64)
+          q = np.random.randint(0, 2**32, (D//64,), dtype=np.uint64)
+          top = hdc_neon.hamming_topk(docs, q, 5)
+          assert len(top) == 5
+          print('OK: hamming_topk returned', top)
+          "

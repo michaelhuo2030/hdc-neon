@@ -1,0 +1,43 @@
+# Rust
+/target/
+Cargo.lock
+*.pdb
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+env/
+
+# maturin
+*.whl
+target/wheels/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Benchmark artifacts
+/results/
+/tmp/
+benchmark_*.csv
+
+# OS
+.DS_Store
+Thumbs.db
